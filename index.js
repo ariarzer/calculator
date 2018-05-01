@@ -11,7 +11,7 @@ function toRPN(expr) {
   const result = [];
   const stack = [];
 
-  for (let i = 0; i < expr.length; i++) {
+  for (let i = 0; i < expr.length; i += 1) {
     if (numbesr.includes(expr[i])) {
       if (numbesr.includes(expr[i - 1])) {
         result[result.length - 1] += expr[i];
@@ -38,10 +38,9 @@ function toRPN(expr) {
       }
       stack.pop();
     }
-    if (expr[i] === ' ') continue;
   }
 
-  for (let i = stack.length; i > 0; i--) {
+  while (stack.length !== 0) {
     result.push(stack.pop());
   }
   return result;
