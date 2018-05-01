@@ -20,6 +20,17 @@ function toRPN(exprArg) {
       }
       stack.push(expr[i]);
     }
+    if (expr[i] === '(') {
+      stack.push('(');
+    }
+    if (expr[i] === ')') {
+      while (stack[stack.length - 1] !== '(') {
+        if (stack.length !== 0) {
+          result.push(stack.pop());
+        }
+      }
+      stack.pop();
+    }
   }
 
   for (let i = stack.length; i > 0; i--) {
