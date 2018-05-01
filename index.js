@@ -1,16 +1,23 @@
-function toRPN(exprArg) {
+function toRPN(expr) {
   const numbesr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
   const operators = ['+', '-', '*', '/'];
-  const priority = {'-': 1, '+': 1, '*': 2, '/': 2};
-
-  const expr = (exprArg.split(' '));
+  const priority = {
+    '-': 1,
+    '+': 1,
+    '*': 2,
+    '/': 2,
+  };
 
   const result = [];
   const stack = [];
 
   for (let i = 0; i < expr.length; i++) {
-    if (numbesr.includes(expr[i][0])) {
-      result.push(expr[i]);
+    if (numbesr.includes(expr[i])) {
+      if (numbesr.includes(expr[i - 1])) {
+        result[result.length - 1] += expr[i];
+      } else {
+        result.push(expr[i]);
+      }
     }
     if (operators.includes(expr[i])) {
       while (priority[expr[i]] <= priority[stack[stack.length - 1]]) {
@@ -31,6 +38,7 @@ function toRPN(exprArg) {
       }
       stack.pop();
     }
+    if (expr[i] === ' ') continue;
   }
 
   for (let i = stack.length; i > 0; i--) {
