@@ -1,0 +1,41 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest && npm run lint && npm run size",
+    "onlytest": "jest",
+    "lint": "eslint *.js",
+    "size": "size-limit",
+    "doc": "jsdoc index.js",
+    "spellcheck": "yaspeller-ci *.md out/*.html"
+  },
+  "keywords": [],
+  "author": "Sofi Valitova <ariarzer@gmail.com>",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "jest": "^22.4.3",
+    "jsdoc": "^3.5.5",
+    "size-limit": "^0.17.0",
+    "yaspeller-ci": "^1.0.0"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+      "jest": true,
+      "node": true
+    }
+  },
+  "size-limit": [
+    {
+      "path": "index.js",
+      "limit": "100B"
+    }
+  ]
+}
