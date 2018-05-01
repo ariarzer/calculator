@@ -1,6 +1,7 @@
 function toRPN(exprArg) {
   const numbesr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
   const operators = ['+', '-', '*', '/'];
+  const priority = {'-': 1, '+': 1, '*': 2, '/': 2};
 
   const expr = (exprArg.split(' '));
 
@@ -12,8 +13,10 @@ function toRPN(exprArg) {
       result.push(expr[i]);
     }
     if (operators.includes(expr[i])) {
-      if (stack.length !== 0) {
-        result.push(stack.pop());
+      while (priority[expr[i]] <= priority[stack[stack.length - 1]]) {
+        if (stack.length !== 0) {
+          result.push(stack.pop());
+        }
       }
       stack.push(expr[i]);
     }
