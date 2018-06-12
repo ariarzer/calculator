@@ -45,10 +45,7 @@ function toRPN(expr) {
     }
   }
 
-  while (stack.length !== 0) {
-    result.push(stack.pop());
-  }
-  return result;
+  return result.concat(stack.reverse());
 }
 
 module.exports = toRPN;
