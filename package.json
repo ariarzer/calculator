@@ -35,7 +35,7 @@
   "size-limit": [
     {
       "path": "index.js",
-      "limit": "100B"
+      "limit": "500B"
     }
   ]
 }

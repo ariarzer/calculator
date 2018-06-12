@@ -1,6 +1,11 @@
-function toRPN(expr) {
-  const numbesr = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+const isNumber = arg => (!((Number.isNaN(+arg)) || (arg === ' ')));
+
+const isOperator = (arg) => {
   const operators = ['+', '-', '*', '/'];
+  return operators.includes(arg);
+};
+
+function toRPN(expr) {
   const priority = {
     '-': 1,
     '+': 1,
@@ -12,14 +17,14 @@ function toRPN(expr) {
   const stack = [];
 
   for (let i = 0; i < expr.length; i += 1) {
-    if (numbesr.includes(expr[i])) {
-      if (numbesr.includes(expr[i - 1])) {
+    if (isNumber(expr[i])) {
+      if (isNumber(expr[i - 1])) {
         result[result.length - 1] += expr[i];
       } else {
         result.push(expr[i]);
       }
     }
-    if (operators.includes(expr[i])) {
+    if (isOperator(expr[i])) {
       while (priority[expr[i]] <= priority[stack[stack.length - 1]]) {
         if (stack.length !== 0) {
           result.push(stack.pop());
