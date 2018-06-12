@@ -1,5 +1,9 @@
 const isNumber = arg => (!((Number.isNaN(+arg)) || (arg === ' ')));
 
+const last = arr => arr.length - 1;
+
+const lastElem = arr => arr[arr.length - 1];
+
 const isOperator = (arg) => {
   const operators = ['+', '-', '*', '/'];
   return operators.includes(arg);
@@ -19,13 +23,13 @@ function toRPN(expressoin) {
   expressoin.split('').forEach((symbol, i, expr) => {
     if (isNumber(symbol)) {
       if (isNumber(expr[i - 1])) {
-        result[result.length - 1] += symbol;
+        result[last(result)] += symbol;
       } else {
         result.push(symbol);
       }
     }
-    if (isOperator(expr[i])) {
-      while (priority[symbol] <= priority[stack[stack.length - 1]]) {
+    if (isOperator(symbol)) {
+      while (priority[symbol] <= priority[lastElem(stack)]) {
         if (stack.length !== 0) {
           result.push(stack.pop());
         }
@@ -36,7 +40,7 @@ function toRPN(expressoin) {
       stack.push('(');
     }
     if (symbol === ')') {
-      while (stack[stack.length - 1] !== '(') {
+      while (lastElem(stack) !== '(') {
         if (stack.length !== 0) {
           result.push(stack.pop());
         }
