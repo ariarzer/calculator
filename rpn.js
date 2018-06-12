@@ -5,7 +5,7 @@ const isOperator = (arg) => {
   return operators.includes(arg);
 };
 
-function toRPN(expr) {
+function toRPN(expressoin) {
   const priority = {
     '-': 1,
     '+': 1,
@@ -16,26 +16,26 @@ function toRPN(expr) {
   const result = [];
   const stack = [];
 
-  for (let i = 0; i < expr.length; i += 1) {
-    if (isNumber(expr[i])) {
+  expressoin.split('').forEach((symbol, i, expr) => {
+    if (isNumber(symbol)) {
       if (isNumber(expr[i - 1])) {
-        result[result.length - 1] += expr[i];
+        result[result.length - 1] += symbol;
       } else {
-        result.push(expr[i]);
+        result.push(symbol);
       }
     }
     if (isOperator(expr[i])) {
-      while (priority[expr[i]] <= priority[stack[stack.length - 1]]) {
+      while (priority[symbol] <= priority[stack[stack.length - 1]]) {
         if (stack.length !== 0) {
           result.push(stack.pop());
         }
       }
-      stack.push(expr[i]);
+      stack.push(symbol);
     }
-    if (expr[i] === '(') {
+    if (symbol === '(') {
       stack.push('(');
     }
-    if (expr[i] === ')') {
+    if (symbol === ')') {
       while (stack[stack.length - 1] !== '(') {
         if (stack.length !== 0) {
           result.push(stack.pop());
@@ -43,7 +43,7 @@ function toRPN(expr) {
       }
       stack.pop();
     }
-  }
+  });
 
   return result.concat(stack.reverse());
 }
